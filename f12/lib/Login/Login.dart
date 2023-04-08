@@ -1,4 +1,5 @@
 import 'package:f12/Screen/Anasayfa.dart';
+import 'package:f12/Screen/Tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';import 'package:firebase_core/firebase_core.dart';
@@ -85,7 +86,7 @@ class _GirisState extends State<Giris> {
           password: passwordController.text.trim(),
 
       ).then((value) {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>Anasayfa()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>TabbarPage()));
       } );
     }on FirebaseAuthException catch (e) {
       print(e);
