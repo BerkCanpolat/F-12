@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -14,14 +15,37 @@ class NotEkle extends StatefulWidget {
 class _NotEkleState extends State<NotEkle> {
 
   TextEditingController baslikT = TextEditingController();
-  TextEditingController icerikT = TextEditingController();
+  TextEditingController icerikT = TextEditingController();  
 
+  FirebaseAuth auth = FirebaseAuth.instance;
 
-  noteAdds(){
-    FirebaseFirestore.instance
+  Future<void> noteAdds() async{
+    await FirebaseFirestore.instance
     .collection("Notlar")
     .doc(baslikT.text)
-    .set({'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text});
+    .set({'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text})
+    .then((value){
+      final value = ConnectionState.done;
+      if(value == ConnectionState.done){
+        createSuccesNoteAdd("Note Başarıyle Eklendi!");
+      }else if(value == ConnectionState.waiting){
+        Center(child: CircularProgressIndicator());
+      }
+    });
+  }
+
+
+  void createSuccesNoteAdd(String messsage) {
+    final snackBar = SnackBar(content: Text(
+      messsage,
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+      ),
+    backgroundColor: Colors.green,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
 
@@ -65,7 +89,7 @@ class _NotEkleState extends State<NotEkle> {
                     Navigator.pop(context);
                   }, child: const Text("İptal")),
                 ],
-              )
+              ),
         ],
       ),
     );
