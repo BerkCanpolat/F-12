@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f12/Screen/Not_Ekle.dart';
 import 'package:f12/Screen/Profil.dart';
 import 'package:f12/Screen/Tabbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -46,7 +48,6 @@ class _UserInformationState extends State<TumNotlar> {
 
 
   bool favoriteUser = false;
-  int index = 0;
 
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('Notlar').snapshots();
 
@@ -69,7 +70,7 @@ class _UserInformationState extends State<TumNotlar> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Dismissible(
-                key: Key("${snapshot.data}"),
+                key: Key("${_usersStream}"),
                 background: Container(
                   child: Icon(Icons.delete,color: Colors.white,),
                   alignment: Alignment.centerLeft,
