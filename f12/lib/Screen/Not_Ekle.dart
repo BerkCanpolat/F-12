@@ -15,7 +15,7 @@ class NotEkle extends StatefulWidget {
 class _NotEkleState extends State<NotEkle> {
 
   TextEditingController baslikT = TextEditingController();
-  TextEditingController icerikT = TextEditingController();  
+  TextEditingController icerikT = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -23,7 +23,7 @@ class _NotEkleState extends State<NotEkle> {
     await FirebaseFirestore.instance
     .collection("Notlar")
     .doc(baslikT.text)
-    .set({'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text})
+    .set({'kullaniciID' : auth.currentUser?.uid,'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text})
     .then((value){
       final value = ConnectionState.done;
       if(value == ConnectionState.done){
