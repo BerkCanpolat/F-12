@@ -1,4 +1,6 @@
+import 'package:f12/Login/Login.dart';
 import 'package:f12/Screen/Anasayfa.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:f12/Screen/Tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,14 +11,15 @@ Future<void> main() async{
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: TabbarPage(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+    navigatorKey: navigatorKey,
+    debugShowCheckedModeBanner: false,
+    home:Giris() ,
+  );
 }
