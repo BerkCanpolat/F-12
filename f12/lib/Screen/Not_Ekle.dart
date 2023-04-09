@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NotEkle extends StatefulWidget {
   const NotEkle({super.key});
@@ -16,13 +20,16 @@ class _NotEkleState extends State<NotEkle> {
   TextEditingController baslikT = TextEditingController();
   TextEditingController icerikT = TextEditingController();
 
+  File? genelDosya;
+  String? indirmeBaglantisi;
+
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<void> noteAdds() async {
     await FirebaseFirestore.instance
     .collection("Notlar")
     .doc(baslikT.text)
-    .set({'kullaniciID' : auth.currentUser?.uid,'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text})
+    .set({'kullaniciID' : auth.currentUser?.uid,'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text, 'resim' : indirmeBaglantisi})
     .then((value){
       final value = ConnectionState.done;
       if (value == ConnectionState.done) {
@@ -30,6 +37,25 @@ class _NotEkleState extends State<NotEkle> {
       } else if (value == ConnectionState.waiting) {
         Center(child: CircularProgressIndicator());
       }
+    });
+  }
+
+  kameradanYukle() async{
+    var yuklenecekDosya = await ImagePicker().pickImage(source: ImageSource.camera);
+    setState(() {
+      genelDosya = File(yuklenecekDosya!.path);
+    });
+
+    Reference referansYolu = FirebaseStorage.instance
+    .ref()
+    .child("notkullaniciresimleri")
+    .child(auth.currentUser!.uid)
+    .child("profilresmi");
+
+    UploadTask yuklemeGorevi = referansYolu.putFile(genelDosya!);
+    String url = await (await yuklemeGorevi.whenComplete(() => print("Fotoğraf Yüklendi!"))).ref.getDownloadURL();
+    setState(() {
+      indirmeBaglantisi = url;
     });
   }
 
@@ -100,6 +126,10 @@ class _NotEkleState extends State<NotEkle> {
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size(100, 50), primary: Colors.deepPurple),
               ),
+              ElevatedButton(
+                onPressed: kameradanYukle, 
+                child: Text("Resim Yükle"),
+                ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);

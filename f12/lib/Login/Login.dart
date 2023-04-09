@@ -21,6 +21,7 @@ class Giris extends StatefulWidget {
 class _GirisState extends State<Giris> {
 
   var _formKey = GlobalKey<FormState>();
+  final key = GlobalKey();
 
   TextEditingController t1 = TextEditingController();
   TextEditingController t2 = TextEditingController();
@@ -53,7 +54,7 @@ class _GirisState extends State<Giris> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset("assets/default.png",width: 70,),
+          Image.asset("assets/NotEt-Logo.png",width: 230,),
           SizedBox(height: 30),
           Form(
             key: _formKey,
@@ -79,6 +80,10 @@ class _GirisState extends State<Giris> {
                   ),
                   SizedBox(height: 25),
                   TextFormField(
+                    buildCounter: (BuildContext context,
+                {int? currentLength, bool? isFocused, int? maxLength}) {
+                  return _animatedContainer(currentLength);
+            },
                     controller: t2,
                     obscureText: true,
                     keyboardType: TextInputType.multiline,
@@ -129,6 +134,18 @@ class _GirisState extends State<Giris> {
           ),
         ],
       ),
+    );
+  }
+
+
+    AnimatedContainer _animatedContainer(int? currentLength) {
+    return AnimatedContainer(
+      key: key,
+      duration: Duration(seconds: 1),
+      height: 15,
+      width: 10.0 * (currentLength ?? 0),
+      color: Colors.green,
+      // color: Colors.red[100 * ((currentLength ?? 0) ~/2)],
     );
   }
 }
