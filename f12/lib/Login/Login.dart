@@ -51,88 +51,92 @@ class _GirisState extends State<Giris> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/NotEt-Logo.png",width: 230,),
-          SizedBox(height: 30),
-          Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: t1,
-                    keyboardType: TextInputType.multiline,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      hintText: "E-Posta Adresi",
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("assets/NotEt-Logo.png",width: 230,),
+              SizedBox(height: 30),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: t1,
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          hintText: "E-Posta Adresi",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(),
+                          ),
+                        ),
+                        validator: (value) {
+                          if(value!.isEmpty){
+                            return "E-Posta Boş Bırakılamaz!";
+                          }
+                        },
                       ),
-                    ),
-                    validator: (value) {
-                      if(value!.isEmpty){
-                        return "E-Posta Boş Bırakılamaz!";
-                      }
-                    },
+                      SizedBox(height: 25),
+                      TextFormField(
+                        buildCounter: (BuildContext context,
+                    {int? currentLength, bool? isFocused, int? maxLength}) {
+                      return _animatedContainer(currentLength);
+                },
+                        controller: t2,
+                        obscureText: true,
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                          hintText: "Şifre",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(),
+                          ),
+                        ),
+                        validator: (value) {
+                          if(value!.isEmpty){
+                            return "Şifre Boş Bırakılamaz!";
+                          }else if(value.length < 4){
+                            return "Şifreniz 4 karakterden kısa olamaz!";
+                          }
+                        },
+                      ),
+                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 50,
+                        width: 370,
+                        child: ElevatedButton(onPressed: (){
+                          if(_formKey.currentState!.validate()){
+                            girisYap();
+                          }
+                        }, child: Text("Giriş Yap")
+                        )
+                        ),
+                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 50,
+                        width: 370,
+                        child: ElevatedButton(onPressed: kayitOl, child: Text("Kaydol"),
+                        ),
+                        ),
+                        SizedBox(height: 15,),
+                        Divider(
+                          height: 0,
+                          indent: 0,
+                          thickness: 1,
+                          color: Colors.black,
+                          ),
+                        TextButton(onPressed: (){}, child: Text("Şifremi Unuttum")),
+                    ],
                   ),
-                  SizedBox(height: 25),
-                  TextFormField(
-                    buildCounter: (BuildContext context,
-                {int? currentLength, bool? isFocused, int? maxLength}) {
-                  return _animatedContainer(currentLength);
-            },
-                    controller: t2,
-                    obscureText: true,
-                    keyboardType: TextInputType.multiline,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      hintText: "Şifre",
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(),
-                      ),
-                    ),
-                    validator: (value) {
-                      if(value!.isEmpty){
-                        return "Şifre Boş Bırakılamaz!";
-                      }else if(value.length < 4){
-                        return "Şifreniz 4 karakterden kısa olamaz!";
-                      }
-                    },
-                  ),
-                  SizedBox(height: 20,),
-                  SizedBox(
-                    height: 50,
-                    width: 370,
-                    child: ElevatedButton(onPressed: (){
-                      if(_formKey.currentState!.validate()){
-                        girisYap();
-                      }
-                    }, child: Text("Giriş Yap")
-                    )
-                    ),
-                  SizedBox(height: 10,),
-                  SizedBox(
-                    height: 50,
-                    width: 370,
-                    child: ElevatedButton(onPressed: kayitOl, child: Text("Kaydol"),
-                    ),
-                    ),
-                    SizedBox(height: 15,),
-                    Divider(
-                      height: 0,
-                      indent: 0,
-                      thickness: 1,
-                      color: Colors.black,
-                      ),
-                    TextButton(onPressed: (){}, child: Text("Şifremi Unuttum")),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
