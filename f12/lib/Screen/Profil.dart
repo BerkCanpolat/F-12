@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -35,7 +36,7 @@ class _UserInformationState extends State<ProfilNotlari> {
   var favoriteUser = false;
   int index = 0;
 
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('Notlar').snapshots();
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('Notlar').where('kullaniciID', isEqualTo: FirebaseAuth.instance.currentUser?.uid).snapshots();
 
   @override
   Widget build(BuildContext context) {

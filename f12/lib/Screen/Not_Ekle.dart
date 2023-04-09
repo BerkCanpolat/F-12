@@ -20,12 +20,10 @@ class _NotEkleState extends State<NotEkle> {
 
   Future<void> noteAdds() async {
     await FirebaseFirestore.instance
-        .collection("Notlar")
-        .doc(baslikT.text)
-        .set({
-      'kullanici_baslik': baslikT.text,
-      'kullanici_icerik': icerikT.text
-    }).then((value) {
+    .collection("Notlar")
+    .doc(baslikT.text)
+    .set({'kullaniciID' : auth.currentUser?.uid,'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text})
+    .then((value){
       final value = ConnectionState.done;
       if (value == ConnectionState.done) {
         createSuccesNoteAdd("Not Başarıyle Eklendi!");
