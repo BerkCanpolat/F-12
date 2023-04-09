@@ -1,6 +1,9 @@
+import 'package:f12/Login/Login.dart';
 import 'package:f12/Screen/Anasayfa.dart';
 import 'package:f12/Screen/Ayarlar.dart';
 import 'package:f12/Screen/Profil.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -15,6 +18,18 @@ class TabbarPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Notlarım"),
+          actions: [
+            IconButton(
+              onPressed: (){
+                FirebaseAuth.instance
+                .signOut()
+                .then((value){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Giris()));
+                });
+              }, 
+              icon: Icon(Icons.exit_to_app)
+              )
+          ],
         ),
         body: Column(
           children: [
