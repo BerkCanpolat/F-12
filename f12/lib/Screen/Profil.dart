@@ -58,6 +58,15 @@ class _UserInformationState extends State<ProfilNotlari> {
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 color: Colors.grey[300],
+                margin: EdgeInsets.all(10),
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                  side: BorderSide(
+                    color: Colors.deepPurple,
+                    width: 2,
+                  ),
+                ),
                 child: InkWell(
                   onTap: () {
                     

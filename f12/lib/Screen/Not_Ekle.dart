@@ -27,10 +27,14 @@ class _NotEkleState extends State<NotEkle> {
 
   Future<void> noteAdds() async {
     await FirebaseFirestore.instance
-    .collection("Notlar")
-    .doc(baslikT.text)
-    .set({'kullaniciID' : auth.currentUser?.uid,'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text, 'resim' : indirmeBaglantisi})
-    .then((value){
+        .collection("Notlar")
+        .doc(baslikT.text)
+        .set({
+      'kullaniciID': auth.currentUser?.uid,
+      'kullanici_baslik': baslikT.text,
+      'kullanici_icerik': icerikT.text,
+      'resim': indirmeBaglantisi
+    }).then((value) {
       final value = ConnectionState.done;
       if (value == ConnectionState.done) {
         createSuccesNoteAdd("Not Başarıyle Eklendi!");
@@ -40,20 +44,24 @@ class _NotEkleState extends State<NotEkle> {
     });
   }
 
-  kameradanYukle() async{
-    var yuklenecekDosya = await ImagePicker().pickImage(source: ImageSource.camera);
+  kameradanYukle() async {
+    var yuklenecekDosya =
+        await ImagePicker().pickImage(source: ImageSource.camera);
     setState(() {
       genelDosya = File(yuklenecekDosya!.path);
     });
 
     Reference referansYolu = FirebaseStorage.instance
-    .ref()
-    .child("notkullaniciresimleri")
-    .child(auth.currentUser!.uid)
-    .child("profilresmi");
+        .ref()
+        .child("notkullaniciresimleri")
+        .child(auth.currentUser!.uid)
+        .child("profilresmi");
 
     UploadTask yuklemeGorevi = referansYolu.putFile(genelDosya!);
-    String url = await (await yuklemeGorevi.whenComplete(() => print("Fotoğraf Yüklendi!"))).ref.getDownloadURL();
+    String url = await (await yuklemeGorevi
+            .whenComplete(() => print("Fotoğraf Yüklendi!")))
+        .ref
+        .getDownloadURL();
     setState(() {
       indirmeBaglantisi = url;
     });
@@ -78,6 +86,7 @@ class _NotEkleState extends State<NotEkle> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Notlarım"),
+        backgroundColor: Colors.blueAccent,
       ),
       body: ListView(
         padding: const EdgeInsets.all(20.0),
@@ -117,6 +126,9 @@ class _NotEkleState extends State<NotEkle> {
             minLines: 20,
             maxLines: 20,
           ),
+          SizedBox(
+            height: 15,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -124,12 +136,15 @@ class _NotEkleState extends State<NotEkle> {
                 onPressed: noteAdds,
                 child: Text("Ekle"),
                 style: ElevatedButton.styleFrom(
-                    minimumSize: Size(100, 50), primary: Colors.deepPurple),
+                    minimumSize: Size(100, 50), primary: Colors.purple[500]),
               ),
-              ElevatedButton(
-                onPressed: kameradanYukle, 
-                child: Text("Resim Yükle"),
-                ),
+              ElevatedButton.icon(
+                icon: Icon(Icons.add_a_photo_sharp),
+                label: Text("Resim Yükle"),
+                onPressed: kameradanYukle,
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(100, 50), primary: Colors.purple[800]),
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -137,7 +152,7 @@ class _NotEkleState extends State<NotEkle> {
                 child: const Text("İptal"),
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size(100, 50),
-                    primary: Colors.deepPurple[800]),
+                    primary: Colors.deepPurple[900]),
               ),
             ],
           ),
