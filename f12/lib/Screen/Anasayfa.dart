@@ -123,7 +123,8 @@ class _UserInformationState extends State<TumNotlar> {
                           favoriteUser = true;
                         });
                       }, icon: Icon(Icons.favorite)),
-                      trailing: ClipRRect(child: Image.asset("assets/default.png", fit: BoxFit.cover,)),
+                      // trailing: ClipRRect(child: Image.asset("assets/default.png", fit: BoxFit.cover,)),
+                  trailing:data['resim'] == null ? ClipRRect(child: Image.asset("assets/default.png",fit: BoxFit.cover,)) : CircleAvatar(child: Image.network("${data['resim']}",width: 100,height: 100,fit: BoxFit.cover,)),
                     ),
                   ),
                 ),

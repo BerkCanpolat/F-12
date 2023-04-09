@@ -1,4 +1,5 @@
 import 'package:f12/Login/Login.dart';
+import 'package:f12/Opening/SplahsOpening.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +17,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
-    home:Giris() ,
+    home:SplashScreen(),
   );
 }
