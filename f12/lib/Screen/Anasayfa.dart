@@ -28,7 +28,8 @@ class _AnasayfaState extends State<Anasayfa> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => NotEkle()));
         }, 
         label: Text("Not Ekle"),
-        icon: Icon(Icons.add_box_outlined),
+        icon: Icon(Icons.add_box_rounded),
+        backgroundColor: Colors.blueAccent,
         ),
     );
   }

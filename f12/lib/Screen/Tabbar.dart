@@ -15,6 +15,7 @@ class TabbarPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Notlarım"),
+          backgroundColor: Colors.blueAccent,
         ),
         body: Column(
           children: [
