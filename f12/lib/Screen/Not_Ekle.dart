@@ -113,6 +113,7 @@ class _NotEkleState extends State<NotEkle> {
           ),
           TextField(
             controller: icerikT,
+            textInputAction: TextInputAction.done,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.deepPurple, width: 2),
