@@ -13,83 +13,106 @@ class NotEkle extends StatefulWidget {
 }
 
 class _NotEkleState extends State<NotEkle> {
-
   TextEditingController baslikT = TextEditingController();
-  TextEditingController icerikT = TextEditingController();  
+  TextEditingController icerikT = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<void> noteAdds() async{
+  Future<void> noteAdds() async {
     await FirebaseFirestore.instance
-    .collection("Notlar")
-    .doc(baslikT.text)
-    .set({'kullanici_baslik' : baslikT.text, 'kullanici_icerik' : icerikT.text})
-    .then((value){
+        .collection("Notlar")
+        .doc(baslikT.text)
+        .set({
+      'kullanici_baslik': baslikT.text,
+      'kullanici_icerik': icerikT.text
+    }).then((value) {
       final value = ConnectionState.done;
-      if(value == ConnectionState.done){
-        createSuccesNoteAdd("Note Başarıyle Eklendi!");
-      }else if(value == ConnectionState.waiting){
+      if (value == ConnectionState.done) {
+        createSuccesNoteAdd("Not Başarıyle Eklendi!");
+      } else if (value == ConnectionState.waiting) {
         Center(child: CircularProgressIndicator());
       }
     });
   }
 
-
   void createSuccesNoteAdd(String messsage) {
-    final snackBar = SnackBar(content: Text(
-      messsage,
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
+    final snackBar = SnackBar(
+      content: Text(
+        messsage,
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      ),
-    backgroundColor: Colors.green,
+      backgroundColor: Colors.green,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Notlarım"),),
+      appBar: AppBar(
+        title: Text("Notlarım"),
+      ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 30),
-        children:  [
-              TextField(
-                controller: baslikT,
-                decoration: const InputDecoration(
-                  hintText: "Başlık",
-                  hintStyle: TextStyle(
-                    fontSize: 35,
-                    color: Colors.grey,
-                  ),
-                  border: InputBorder.none,
-                ),
-                style: const TextStyle(
-                  fontSize: 35,
-                ),
+        padding: const EdgeInsets.all(20.0),
+        children: [
+          TextField(
+            controller: baslikT,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
               ),
-              TextField(
-                controller: icerikT,
-                decoration: const InputDecoration(
-                  hintText: "Yazmaya başla",
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                  ),
-                  border: InputBorder.none,
-                ),
-                minLines: 30,
-                maxLines: 30,
+              hintText: "Başlık",
+              hintStyle: TextStyle(
+                fontSize: 35,
+                color: Colors.grey,
               ),
-              Row(
-                children: [
-                  ElevatedButton(onPressed: noteAdds, child: Text("Ekle")),
-                  ElevatedButton(onPressed: (){
-                    Navigator.pop(context);
-                  }, child: const Text("İptal")),
-                ],
+            ),
+            style: const TextStyle(
+              fontSize: 35,
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          TextField(
+            controller: icerikT,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
               ),
+              hintText: "Yazmaya başla",
+              hintStyle: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+            minLines: 20,
+            maxLines: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: noteAdds,
+                child: Text("Ekle"),
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(100, 50), primary: Colors.deepPurple),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("İptal"),
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(100, 50),
+                    primary: Colors.deepPurple[800]),
+              ),
+            ],
+          ),
         ],
       ),
     );

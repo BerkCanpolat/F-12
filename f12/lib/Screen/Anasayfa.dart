@@ -94,13 +94,25 @@ class _UserInformationState extends State<TumNotlar> {
                 },
                 child: Card(
                   color: Colors.grey[300],
+                  margin: EdgeInsets.all(10),
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                    side: BorderSide(
+                    color: Colors.deepPurple,
+                    width: 2,
+                    ),
+                  ),
+
                   child: InkWell(
                     onTap: () {
                       
                     },
                     child: ListTile(
-                      title: data['kullanici_baslik'] == null ? const Text("Başlık Yok") : Text(data['kullanici_baslik'],style: TextStyle(fontWeight: FontWeight.bold,),),
-                      subtitle: data['kullanici_icerik'] == null ? const Text("İçerik Yok") : Text(data['kullanici_icerik']),
+                      title: data['kullanici_baslik'] == null ? const Text("Başlık Yok") :
+                      Text(data['kullanici_baslik'],style: TextStyle(fontWeight: FontWeight.bold,color:Colors.deepPurple[900]),),
+                      subtitle: data['kullanici_icerik'] == null ? const Text("İçerik Yok") :
+                      Text(data['kullanici_icerik']),
                       leading:favoriteUser ? IconButton(onPressed: (){
                         setState(() {
                           favoriteUser = false;

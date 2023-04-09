@@ -19,8 +19,8 @@ class TabbarPage extends StatelessWidget {
         body: Column(
           children: [
             TabBar(
-              indicatorColor: Colors.red,
-              labelColor: Colors.red,
+              indicatorColor: Colors.deepPurple,
+              labelColor: Colors.deepPurple,
               unselectedLabelColor: Colors.grey,
               tabs: [
             Tab(text: "Anasayfa",),
