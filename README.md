@@ -15,3 +15,8 @@ Kayıt olan bursiyer kendi oluşturmuş olduğu notları görüntüleyebilecek.
 
 ### Ayarlar
 Layıt olan bursiyer hesabını ve uygulamayı özelleştirebilecek.
+![NotEt1](https://github.com/BerkCanpolat/F-12/assets/115354274/dd7adb23-787d-4412-8a6e-df764ce05946)
+![NotEt2](https://github.com/BerkCanpolat/F-12/assets/115354274/04200b95-8693-44c4-b3d5-95fa2a63d2eb)
+![NotEt3](https://github.com/BerkCanpolat/F-12/assets/115354274/c0013568-f2a6-4e32-9000-5b3b5ca07aa4)
+![NotEt4](https://github.com/BerkCanpolat/F-12/assets/115354274/02e675f1-0c4a-4466-9817-6dadfae80212)
+![NotEt5](https://github.com/BerkCanpolat/F-12/assets/115354274/c8cfc829-c1d7-4e93-96dd-fc4110e4f7a1)
